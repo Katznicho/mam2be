@@ -20,7 +20,7 @@ class DashboardController extends Controller
        $total_unapproved_comments = 2;
         $planId=null;
          $planName=null;
-         dd($user->subscriptionPlan);
+
         if($user->subscriptionPlan){
             //
             $planId = $user->subscriptionPlan;
@@ -28,7 +28,9 @@ class DashboardController extends Controller
             $planName = PlanModel::where('id', $planId)->first();
         }
 
-       return view('admin.index', compact('total_users','total_comments','total_approved_comments','total_unapproved_comments', 'planId', 'planName'));
+       return view('admin.index', compact('total_users','total_comments',
+       'total_approved_comments',
+       'total_unapproved_comments', 'planId', 'planName', 'user'));
 
    }
 }

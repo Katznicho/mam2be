@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\WelcomeController;
@@ -61,7 +61,7 @@ Route::middleware(['web', 'auth'])
     ->prefix('kutayarisha/v1')
     ->group(function () {
         //redirect to dashboard
-        Route::get('/admin', [DashBoardController::class, 'index'])->name(
+        Route::get('/admin', [DashboardController::class, 'index'])->name(
             'admin'
         );
         //redirect to dashboard
@@ -75,11 +75,11 @@ Route::middleware(['web', 'auth'])
         //subscription
         Route::get('/subscription/{package}', [PricingController::class, 'subscription'])->name(
             'subscription'
-        ); 
+        );
         //
         Route::post('/payment', [MakePaymentController::class, 'make_payment'])->name(
             'payment'
-        );  
+        );
 
          //payment resource
          Route::resource('payments', MakePaymentController::class);
