@@ -43,7 +43,7 @@
                         <li class="nav-item">
                             <a href="{{route('admin')}}" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Admin </p>
+                                <p>View DashBoard </p>
                             </a>
                         </li>
 
@@ -88,13 +88,12 @@
 
                     </ul>
                 </li>
-
-                <!--products-->
+                {{-- appointments --}}
                 <li class="nav-item">
                     <a class="nav-link">
-                        <i class="nav-icon fa fa-lemon-o"></i>
+                        <i class="nav-icon fa fa-binoculars"></i>
                         <p>
-                             Foods
+                             Appointments
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -102,7 +101,7 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>View Foods</p>
+                                <p>View Appointments</p>
                             </a>
                         </li>
 
@@ -110,6 +109,33 @@
 
                     </ul>
                 </li>
+                {{-- appointments --}}
+
+                {{-- important dates --}}
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="nav-icon fa fa-binoculars"></i>
+                        <p>
+                             Important Dates
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Dates</p>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </li>
+                {{-- important dates --}}
+
+                <!--products-->
+
                 {{-- <li class="nav-item">
                     <a class="nav-link">
                         <i class="nav-icon fa fa-lemon-o"></i>

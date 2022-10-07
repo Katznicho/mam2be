@@ -28,7 +28,7 @@ use App\Http\Controllers\Mojaloop;
 //     return view('welcome');
 // });
 
-Route::prefix('kutayarisha/v1')->group(function () {
+Route::prefix('mam2be/v1')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -58,7 +58,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['web', 'auth'])
-    ->prefix('kutayarisha/v1')
+    ->prefix('mama2be/v1')
     ->group(function () {
         //redirect to dashboard
         Route::get('/admin', [DashboardController::class, 'index'])->name(

@@ -9,7 +9,12 @@ use App\Models\PlanModel;
 
 class DashboardController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request){
         $total_users = User::count();
         //get the current user
@@ -28,9 +33,16 @@ class DashboardController extends Controller
             $planName = PlanModel::where('id', $planId)->first();
         }
 
+        if($user->role == 'admin'){
+            $total_appointments =10;
+            $total_payments = 10;
+            return view('admin.admin_health', compact('total_users', 'total_appointments', 'total_payments'));
+        }else{
+
        return view('admin.index', compact('total_users','total_comments',
        'total_approved_comments',
        'total_unapproved_comments', 'planId', 'planName', 'user'));
+        }
 
    }
 }

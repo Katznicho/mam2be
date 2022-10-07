@@ -10,12 +10,20 @@ use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 class MakePaymentController extends Controller
-{   
+{
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            //select all the payments made by the user based on the user id 
-            $payments = PaymentModel::where('user_id', Auth::user()->id)->select('*');
+            //get the current user
+            $user = Auth::user();
+            $payments = null;
+            if($user->role == 'admin'){
+                $payments = PaymentModel::latest()->get();
+            }else{
+                $payments = PaymentModel::where('user_id', $user->id)->latest()->get();
+            }
+            //select all the payments made by the user based on the user id
+            //$payments = PaymentModel::where('user_id', Auth::user()->id)->select('*');
             //dd($roles);
             return DataTables::of($payments)
             ->addColumn('action', function ($row) {
@@ -29,7 +37,7 @@ class MakePaymentController extends Controller
 
         return view('payments.index');
     }
-    
+
     public function formatToLocalNumber($mobile)
     {
         $length = strlen($mobile);
@@ -48,7 +56,7 @@ class MakePaymentController extends Controller
     }
     public function make_payment(Request $request)
     {
-        
+
           //use try catch to handle errors
         $curl = curl_init();
 
@@ -64,11 +72,11 @@ class MakePaymentController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array('amount' => '500', 
-            'msisdn' => $this->formatToLocalNumber($request->phone), 
-            'environment' => 'production', 'callback' => 'localhost', 
+            CURLOPT_POSTFIELDS => array('amount' => '500',
+            'msisdn' => $this->formatToLocalNumber($request->phone),
+            'environment' => 'production', 'callback' => 'localhost',
             'externalReference' =>$transaction_id ,
-             'reason' => "payment for a subscription of type $request->package", 
+             'reason' => "payment for a subscription of type $request->package",
             'currency' => 'UGX'),
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Basic NjExYjI2YzQtMmM2Yy00MDdjLWFlMjQtYzg2MDI5NDM0YjA0OjBiNzA2MmExNWZjOWE4NDE3ZDI1YmU4YmNmZGUxMWFj',
@@ -79,7 +87,7 @@ class MakePaymentController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        
+
         // store the response in a variable
         $response = json_decode($response, true);
 
@@ -107,8 +115,8 @@ class MakePaymentController extends Controller
         //create abn array
 
 
-        
-        
+
+
         //echo $response;
     }
 
@@ -116,8 +124,8 @@ class MakePaymentController extends Controller
     public function mojaloop_payment(Request $request)
     {
         //use try catch to handle errors
-        
-        
+
+
     }
-    
+
 }
